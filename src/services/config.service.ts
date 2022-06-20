@@ -31,8 +31,7 @@ class ConfigService {
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
-    console.log('pg host:', this.getValue('POSTGRES_HOST'));
-    return {
+    const config: any = {
       type: 'postgres',
       host: this.getValue('POSTGRES_HOST'),
       port: parseInt(this.getValue('POSTGRES_PORT')),
@@ -42,16 +41,18 @@ class ConfigService {
 
       entities: ['**/*.entity{.ts,.js}'],
 
-      //   migrationsTableName: 'migration',
+      migrationsTableName: 'migration',
 
-      //   migrations: ['src/migration/*.ts'],
+      migrations: ['src/migration/*.ts'],
 
-      //   cli: {
-      //     migrationsDir: 'src/migration',
-      //   },
+      // cli: {
+      //   migrationsDir: 'src/migration',
+      // },
 
       ssl: this.isProduction(),
     };
+    console.log('pg host:', config);
+    return config;
   }
 }
 

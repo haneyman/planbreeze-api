@@ -6,8 +6,9 @@ export class EventsController {
   constructor(private readonly eventService: EventsService) {}
 
   @Get()
-  getEvents(): string {
-    const results = this.eventService.findAll();
-    return 'a bunch of events: ' + JSON.stringify(results);
+  async getEvents(): Promise<string> {
+    const results = await this.eventService.getEvents();
+    return results;
+    // return 'planbreeze-api events: ' + JSON.stringify(results);
   }
 }

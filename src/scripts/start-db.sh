@@ -21,4 +21,4 @@ SLEEP 3;
 # create the db 
 echo "CREATE DATABASE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
 echo "\l" | docker exec -i $SERVER psql -U postgres
-view rawstart-db.sh hosted with ❤ by GitHub
+# view rawstart-db.sh hosted with ❤ by GitHub
