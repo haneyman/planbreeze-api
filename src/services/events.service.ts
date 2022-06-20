@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-// import { Event } from './interfaces/event.interface';
 import { PG_CONNECTION } from '../constants';
 @Injectable()
 export class EventsService {
@@ -12,18 +11,26 @@ export class EventsService {
     return res.rows;
   }
 
-  async create(event: Event) {
+  async createEvent(event: dbEvent) {
     // const res = await this.conn.query('INSERT INTO events');
     // console.log('res.rows: ', res.rows);
-    // return res.rows;
-    const text = 'INSERT INTO events() VALUES($1, $2) RETURNING *';
-    const values = ['brianc', 'brian.m.carlson@gmail.com'];
+    const text =
+      'INSERT INTO events(blob, category, date_added, description, event_date, priority) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
+    const values = [
+      event.blob,
+      event.category,
+      event.date_added,
+      event.description,
+      event.event_date,
+      event.priority,
+    ];
 
     // async/await
     try {
-      const res = await client.query(text, values);
+      const res = await this.conn.query(text, values);
+      console.log('res', res);
       console.log(res.rows[0]);
-      // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+      return res.rows;
     } catch (err) {
       console.log(err.stack);
     }
